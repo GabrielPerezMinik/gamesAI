@@ -1,12 +1,12 @@
 import { useState } from 'react'
-// import confetti from 'canvas-confetti'
-
 import { Square } from './components/Square.jsx'
 import { TURNS } from './constants.js'
 import { checkWinnerFrom, checkEndGame } from './logic/board.js'
 import { WinnerModal } from './components/WinnerModal.jsx'
 import { saveGameToStorage, resetGameStorage } from './logic/storage/index.js'
 import confetti from "canvas-confetti"
+import { sendMove } from './logic/IA/jugador2.tsx'
+
 
 function App () {
   const [board, setBoard] = useState(() => {
@@ -61,6 +61,7 @@ function App () {
     } else if (checkEndGame(newBoard)) {
       setWinner(false) // empate
     }
+    sendMove(newBoard, newTurn)
   }
 
   const getTurn = () => {
@@ -70,8 +71,6 @@ function App () {
   const getBoard = () => {
     return newBoard;
   }
-
-  
 
   return (
     
@@ -108,11 +107,3 @@ function App () {
   )
 }
 export default App 
-
-export function getTurn() {
-  return 'hola';
-}
-
-export function getBoard () {
-  return 'newBoard';
-}
