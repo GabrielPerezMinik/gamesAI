@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
-from IATicTacToe import ia_movimiento
+# from IATicTacToe import ia_movimiento
 from IA3EnrayaConvolucional import make_move
 import numpy as np
 
