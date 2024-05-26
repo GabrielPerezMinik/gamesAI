@@ -46,40 +46,23 @@ def handle_move2():
     #print("Posición del jugador recibida:", data['player_position'])
     
     
-    #print(data)
     # Aquí puedes enviar una respuesta si es necesario
 
-    #data['board'][2] = '⚪'
 
     data2=desencript(data)
 
     board=tunelaIA(data2['board'])
             
 
-    print 
-
     move=make_move(board)    
 
 
-    #data2['board'][make_move(board)]='0'
-
     data2['board'][move]='1'
 
-   
-    #while data2['board'][move]=='0':
-        
-    #    move=make_move(board)
-    #    data2['board'][move]='0'
     print(move)
-    
-    #print(data2)
+
     print(encript(data2))
 
-    #print(data)
-    #movimiento=ia_movimiento(data2['board'])
-
-    #print(data2['board'])
-    #print(movimiento)
 
 
     return data2
