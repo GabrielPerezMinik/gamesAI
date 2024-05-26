@@ -5,8 +5,8 @@ from IA3EnrayaAlgoritmo import find_best_move
 
 app = Flask(__name__)
 CORS(app)
-CORS(app, resources={r"/move": {"origins": "http://localhost:5173"}})
-@app.route('/move', methods=['POST'])
+CORS(app, resources={r"/move2": {"origins": "http://localhost:5173"}})
+@app.route('/move2', methods=['POST'])
 def handle_move():
     
     data = request.json
@@ -14,8 +14,9 @@ def handle_move():
 
     best_move = find_best_move(data['board'])
     data['board'][best_move] = '⚪'
+    print(data['board'])
     return data
 
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(debug=True, port=5001)

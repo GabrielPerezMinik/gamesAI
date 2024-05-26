@@ -34,8 +34,8 @@ def tunelaIA(data):
 
 app = Flask(__name__)
 CORS(app)
-CORS(app, resources={r"/move": {"origins": "http://localhost:5173"}})
-@app.route('/move', methods=['POST'])
+CORS(app, resources={r"/move1": {"origins": "http://localhost:5173"}})
+@app.route('/move1', methods=['POST'])
 def handle_move2():
     
     data = request.json
