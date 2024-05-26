@@ -1,6 +1,5 @@
-from flask import Flask, request, jsonify
+from flask import Flask, request
 from flask_cors import CORS
-# from IATicTacToe import ia_movimiento
 from IA3EnrayaConvolucional import make_move
 import numpy as np
 
@@ -35,10 +34,12 @@ def tunelaIA(data):
 
 app = Flask(__name__)
 CORS(app)
-CORS(app, resources={r"/move": {"origins": "http://localhost:5173"}})
-@app.route('/move', methods=['POST'])
-def handle_move():
+CORS(app, resources={r"/move1": {"origins": "http://localhost:5173"}})
+@app.route('/move1', methods=['POST'])
+def handle_move2():
+    
     data = request.json
+
     # Aquí puedes procesar los datos recibidos y realizar cualquier acción necesaria.
     # Por ejemplo, puedes acceder al tablero y la posición del jugador como data['board'] y data['player_position']
     #print("Tablero recibido:", data['board'])
@@ -54,6 +55,9 @@ def handle_move():
 
     board=tunelaIA(data2['board'])
             
+
+    print 
+
     move=make_move(board)    
 
 

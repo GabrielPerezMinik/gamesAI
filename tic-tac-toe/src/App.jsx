@@ -5,10 +5,15 @@ import { checkWinnerFrom, checkEndGame } from './logic/board.js'
 import { WinnerModal } from './components/WinnerModal.jsx'
 import { saveGameToStorage, resetGameStorage } from './logic/storage/index.js'
 import confetti from "canvas-confetti"
-import { sendMove } from './logic/IA/jugador2.tsx'
+import { sendMove1, sendMove2} from './logic/IA/jugador2.tsx'
+
 
 
 function App () {
+
+  const [gameStarted, setGameStarted] = useState(false)
+  const [difficulty, setDifficulty] = useState(null)
+
   const [board, setBoard] = useState(() => {
     const boardFromStorage = window.localStorage.getItem('board')
     if (boardFromStorage) return JSON.parse(boardFromStorage)
@@ -60,11 +65,25 @@ function App () {
     if (newWinner) {
       confetti()
       setWinner(newWinner)
+      return;
     } else if (checkEndGame(newBoard)) {
       setWinner(false) // empate
+      return;
     }
     // movimiento de la IA
-    let valorIA = await sendMove(newBoard, newTurn)
+    let valorIA;
+
+    // IA poco entrenada
+    
+    if(difficulty == "facil"){ 
+      valorIA = await sendMove1(newBoard, newTurn);
+    }
+
+    // IA imposible de ganar
+    
+    if(difficulty == "dificil"){
+      valorIA = await sendMove2(newBoard, newTurn);
+    }
     
     // actualizar el tablero IA
     setBoard(valorIA.board)
@@ -86,6 +105,15 @@ function App () {
     }
   }
 
+  if (!gameStarted) {
+    return (
+      <div className='dificultad' onLoad={resetGameStorage()}>
+        <h1>Elige la dificultad</h1>
+        <button onClick={() => { setDifficulty('facil'); setGameStarted(true); }} className='boton-dificultad'>Fácil</button>
+        <button onClick={() => { setDifficulty('dificil'); setGameStarted(true); }} className='boton-dificultad'>Difícil</button>
+      </div>
+    )
+  }
   return (
     
     <main className='board'>
